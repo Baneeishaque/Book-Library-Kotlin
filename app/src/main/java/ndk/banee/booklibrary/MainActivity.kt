@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         // For inserting the author
         Observable.just(database.authorDao().insert(AuthorModel(authorName = "Ahsen Saeed")))
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(AndroidSchedulers.)
             .subscribe({
                 id = it
                 Log.d(applicationName, "Author Inserted, Author ID : $it")
@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity() {
                     Log.d(applicationName, authorsIterator.next().toString())
                 }
             }, {
-                Log.d(applicationName, "Error : ${it.printStackTrace()}")
                 Log.d(applicationName, "Error : ${it.printStackTrace()}")
             })
     }
