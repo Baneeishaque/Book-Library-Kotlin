@@ -15,20 +15,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val database =
+        val database: BookLibraryDatabase =
             Room.databaseBuilder(this, BookLibraryDatabase::class.java, applicationName).build()
 
-        var id: Long = 0
+        var id: Long
         // For inserting the author
-        Observable.just(database.authorDao().insert(AuthorModel(authorName = "Ahsen Saeed")))
+        Observable.just("Author Name")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                id = it
-                Log.d(applicationName, "Author Inserted, Author ID : $it")
-            }, {
-                Log.d(applicationName, "Error : ${it.printStackTrace()}")
-            })
+            .subscribe({ authorName ->
+                id = database.authorDao().insert(AuthorModel(authorName = authorName))
+                Log.d(applicationName, "Author Inserted, Author ID : $id")
+            }, { throwable ->
+                Log.d(applicationName, "Error : ${throwable.printStackTrace()}")
+            }, {})
 
 //        // Author with Id
 //        Observable.just(database.authorDao().getAuthorWithId(id))

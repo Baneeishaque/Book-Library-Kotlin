@@ -5,6 +5,7 @@ import androidx.room.Query
 
 @Dao
 interface AuthorDao : BaseDao<AuthorModel> {
+
     @Query(value = "SELECT * FROM authors")
     fun getAllAuthors(): List<AuthorModel>
 
